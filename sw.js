@@ -1,8 +1,8 @@
 const CACHE_NAME = "warung-cache-v1";
 const urlsToCache = [
-  "index1.html",
-  "About1.html",
-  "contact1.html",
+  "index.html",
+  "About.html",
+  "contact.html",
   "favicon.jpg",
   "icon-192.jpg",
   "icon-512.jpg",

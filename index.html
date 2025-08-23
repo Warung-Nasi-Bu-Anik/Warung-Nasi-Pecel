@@ -1,295 +1,143 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Warung Nasi Bu Anik</title>
-		<link rel="icon" type="image/jpeg" href="favicon.jpg" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warung Nasi Bu Anik</title>
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
-		<!-- Manifest -->
-		<link rel="manifest" href="manifest.json" />
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
 
-		<!-- Register Service Worker -->
-		<script>
-			if ("serviceWorker" in navigator) {
-				navigator.serviceWorker
-					.register("sw.js")
-					.then(() => {
-						console.log("Service Worker aktif 🚀");
-					})
-					.catch(err => {
-						console.error("Service Worker gagal:", err);
-					});
-			}
-		</script>
+  <!-- Register Service Worker -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() => {
+        console.log("Service Worker aktif 🚀");
+      }).catch(err => {
+        console.error("Service Worker gagal:", err);
+      });
+    }
+  </script>
 
-		<style>
-			body {
-				margin: 0;
-				font-family: Arial, sans-serif;
-				background: linear-gradient(
-					to bottom,
-					#ffa726 0%,
-					#ffeb3b 30%,
-					#f8bbd0 100%
-				);
-				color: #e2e8f0;
-			}
-			header {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				min-height: 60px;
-				padding: 0 20px;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				background-color: rgba(0, 0, 0, 0.7);
-				backdrop-filter: blur(6px);
-				z-index: 1000;
-			}
-			.logo {
-				font-weight: bold;
-				font-size: 20px;
-				text-decoration: none;
-				color: #fff;
-				opacity: 0;
-				animation: fadeSlideDown 1s ease forwards;
-			}
-			.logo span {
-				color: #e3fc06;
-			}
-			#navMenu {
-				display: flex;
-			}
-			#navMenu a {
-				color: #fff;
-				margin: 0 10px;
-				text-decoration: none;
-				font-weight: 500;
-			}
-			#navMenu a:hover {
-				color: #06b6d4;
-			}
-			.hamburger {
-				display: none;
-				flex-direction: column;
-				cursor: pointer;
-				gap: 5px;
-				margin-right: 20px;
-				padding: 8px 10px;
-				border-radius: 8px;
-				transition: background 0.3s;
-			}
-			.hamburger:hover {
-				background: rgba(255, 255, 255, 0.15);
-			}
-			.hamburger span {
-				width: 25px;
-				height: 3px;
-				background: #fff;
-				border-radius: 3px;
-				transition: 0.3s;
-			}
-			@media (max-width: 768px) {
-				#navMenu {
-					position: fixed;
-					top: 60px;
-					right: -100%;
-					flex-direction: column;
-					background: rgba(0, 0, 0, 0.9);
-					width: 200px;
-					padding: 20px;
-					transition: right 0.3s ease-in-out;
-				}
-				#navMenu.show {
-					right: 0;
-				}
-				#navMenu a {
-					margin: 15px 0;
-				}
-				.hamburger {
-					display: flex;
-				}
-			}
-			section {
-				padding: 60px 20px;
-				max-width: 1000px;
-				margin: auto;
-			}
-			h1,
-			h2,
-			h3 {
-				color: rgb(255, 253, 253);
-			}
-			.hero {
-				height: 90vh;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				text-align: center;
-				background: url("https://source.unsplash.com/1600x900/?indonesian-food")
-					center/cover no-repeat;
-			}
-			.hero h1 {
-				font-size: 42px;
-				opacity: 0;
-				animation: fadeSlideUp 1.2s ease forwards;
-				animation-delay: 0.5s;
-			}
-			.hero p {
-				font-size: 18px;
-				color: #e2e8f0;
-				opacity: 0;
-				animation: fadeIn 1s ease forwards;
-				animation-delay: 1.2s;
-			}
-			.btn {
-				display: inline-block;
-				background: #3b82f6;
-				color: #fff;
-				padding: 10px 20px;
-				border-radius: 6px;
-				margin-top: 20px;
-				text-decoration: none;
-				font-weight: bold;
-				transition: 0.3s;
-				opacity: 0;
-				animation: fadeIn 1s ease forwards;
-				animation-delay: 1.6s;
-			}
-			.btn:hover {
-				background: #06b6d4;
-			}
-			.grid {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 20px;
-				justify-content: center;
-			}
-			.card {
-				background: rgba(0, 0, 0, 0.932);
-				padding: 20px;
-				border-radius: 12px;
-				text-align: center;
-				width: 280px;
-				transition:
-					transform 0.3s ease,
-					box-shadow 0.3s ease;
-			}
-			.card:hover {
-				transform: translateY(-8px);
-				box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-			}
-			.card img {
-				width: 100%;
-				border-radius: 10px;
-				margin-bottom: 10px;
-			}
-			footer {
-				text-align: center;
-				padding: 20px;
-				background: #000;
-				margin-top: 30px;
-			}
-			@keyframes fadeSlideDown {
-				from {
-					opacity: 0;
-					transform: translateY(-20px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-			@keyframes fadeSlideUp {
-				from {
-					opacity: 0;
-					transform: translateY(30px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-			@keyframes fadeIn {
-				from {
-					opacity: 0;
-				}
-				to {
-					opacity: 1;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<header>
-			<a href="#hero" class="logo">Warung Nasi <span>Bu Anik</span></a>
-			<nav id="navMenu">
-				<a href="About.html">Tentang</a>
-				<a href="#services">Menu</a>
-				<a href="contact.html">Kontak</a>
-			</nav>
-			<div class="hamburger" id="hamburger">
-				<span></span><span></span><span></span>
-			</div>
-		</header>
+  <style>
+    body { 
+        margin:0; 
+        font-family:Arial, sans-serif; 
+        background: linear-gradient(to bottom, #FFA726 0%, #FFEB3B 30%, #F8BBD0 100%);
+        color:#E2E8F0; 
+    }
+    header { 
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 60px;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0,0,0, 0.7);
+        backdrop-filter: blur(6px);
+        z-index: 1000;
+    }
+    .logo { 
+        font-weight:bold; 
+        font-size:20px; 
+        text-decoration:none; 
+        color:#fff; 
+        opacity: 0;
+        animation: fadeSlideDown 1s ease forwards;
+    }
+    .logo span { color:#e3fc06; }
+    #navMenu{ display: flex; }
+    #navMenu a { color:#fff; margin:0 10px; text-decoration: none; font-weight: 500; }
+    #navMenu a:hover { color:#06B6D4; }
+    .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; margin-right: 20px; padding: 8px 10px; border-radius: 8px; transition: background 0.3s; }
+    .hamburger:hover { background: rgba(255,255,255,0.15); }
+    .hamburger span { width: 25px; height: 3px; background: #fff; border-radius: 3px; transition: 0.3s; }
+    @media (max-width: 768px) {
+      #navMenu { position: fixed; top: 60px; right: -100%; flex-direction: column; background: rgba(0,0,0,0.9); width: 200px; padding: 20px; transition: right 0.3s ease-in-out; }
+      #navMenu.show { right: 0; }
+      #navMenu a { margin: 15px 0; }
+      .hamburger { display: flex; }
+    }
+    section { padding:60px 20px; max-width:1000px; margin:auto; }
+    h1,h2,h3 { color:rgb(255, 253, 253); }
+    .hero { height:90vh; display:flex; align-items:center; justify-content:center; text-align:center;
+        background:url("https://source.unsplash.com/1600x900/?indonesian-food") center/cover no-repeat; }
+    .hero h1 { font-size:42px; opacity: 0; animation: fadeSlideUp 1.2s ease forwards; animation-delay: 0.5s; }
+    .hero p { font-size:18px; color:#E2E8F0; opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 1.2s; }
+    .btn { display:inline-block; background:#3B82F6; color:#fff; padding:10px 20px; border-radius:6px; margin-top:20px; text-decoration:none; font-weight:bold; transition:0.3s; opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 1.6s; }
+    .btn:hover { background:#06B6D4; }
+    .grid { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+    .card { background:rgba(0, 0, 0, 0.932); padding:20px; border-radius:12px; text-align:center; width:280px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+    .card img { width:100%; border-radius:10px; margin-bottom:10px; }
+    footer { text-align:center; padding:20px; background:#000; margin-top:30px; }
+    @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-20px); } to   { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(30px); } to   { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to   { opacity: 1; } }
+  </style>
+</head>
+<body>
 
-		<section class="hero" id="hero">
-			<div>
-				<h1>
-					Selamat Datang di <br />
-					Warung Nasi <span>Bu Anik</span>
-				</h1>
-				<p>
-					Nasi Pecel | Nasi Campur | Nasi Kuning <br />
-					Cita rasa rumahan, harga bersahabat
-				</p>
-				<a href="#services" class="btn">Lihat Menu</a>
-			</div>
-		</section>
+  <header>
+    <a href="#hero" class="logo">Warung Nasi <span>Bu Anik</span></a>
+    <nav id="navMenu">
+        <a href="About1.html">Tentang</a>
+        <a href="#services">Menu</a>
+        <a href="contact1.html">Kontak</a>
+    </nav>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
 
-		<section id="services">
-			<h2>Menu Andalan</h2>
-			<div class="grid">
-				<div class="card">
-					<img src="3.jpg" alt="Nasi Pecel" />
-					<h3>Nasi Pecel</h3>
-					<p>Sayuran segar dengan sambal kacang khas.</p>
-					<p><b>Rp12.000 – Rp18.000</b></p>
-				</div>
-				<div class="card">
-					<img src="1.jpg" alt="Nasi Campur" />
-					<h3>Nasi Campur</h3>
-					<p>Seporsi lengkap dengan lauk variatif.</p>
-					<p><b>Rp15.000 – Rp22.000</b></p>
-				</div>
-				<div class="card">
-					<img src="2.jpg" alt="Nasi Kuning" />
-					<h3>Nasi Kuning</h3>
-					<p>Nasi gurih kunyit dengan lauk yang gurih.</p>
-					<p><b>Rp15.000 – Rp25.000</b></p>
-				</div>
-			</div>
-		</section>
+  <section class="hero" id="hero">
+    <div>
+      <h1>Selamat Datang di <br> Warung Nasi <span>Bu Anik</span></h1>
+      <p>Nasi Pecel | Nasi Campur | Nasi Kuning <br> Cita rasa rumahan, harga bersahabat</p>
+      <a href="#services" class="btn">Lihat Menu</a>
+    </div>
+  </section>
 
-		<footer>
-			<p>
-				© <span id="year"></span> Warung Nasi Bu Anik. All Rights
-				Reserved.
-			</p>
-		</footer>
+  <section id="services">
+    <h2>Menu Andalan</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="3.jpg" alt="Nasi Pecel">
+        <h3>Nasi Pecel</h3>
+        <p>Sayuran segar dengan sambal kacang khas.</p>
+        <p><b>Rp12.000 – Rp18.000</b></p>
+      </div>
+      <div class="card">
+        <img src="1.jpg" alt="Nasi Campur">
+        <h3>Nasi Campur</h3>
+        <p>Seporsi lengkap dengan lauk variatif.</p>
+        <p><b>Rp15.000 – Rp22.000</b></p>
+      </div>
+      <div class="card">
+        <img src="2.jpg" alt="Nasi Kuning">
+        <h3>Nasi Kuning</h3>
+        <p>Nasi gurih kunyit dengan lauk yang gurih.</p>
+        <p><b>Rp15.000 – Rp25.000</b></p>
+      </div>
+    </div>
+  </section>
 
-		<script>
-			document.getElementById("year").textContent =
-				new Date().getFullYear();
-			const hamburger = document.getElementById("hamburger");
-			const navMenu = document.getElementById("navMenu");
-			hamburger.addEventListener("click", () => {
-				hamburger.classList.toggle("active");
-				navMenu.classList.toggle("show");
-			});
-		</script>
-	</body>
+  <footer>
+    <p>© <span id="year"></span> Warung Nasi Bu Anik. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const hamburger = document.getElementById("hamburger");
+    const navMenu = document.getElementById("navMenu");
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      navMenu.classList.toggle("show");
+    });
+  </script>
+</body>
 </html>
