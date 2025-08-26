@@ -110,15 +110,56 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    /* Link Styling */
-    a {
-      color: #3B82F6;
+    
+    .btn {
+      position: relative;
+      width: 200px;
+      height: 55px;
+      background: #25d366;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      overflow: hidden;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       text-decoration: none;
-      font-weight: 600;
     }
-    a:hover {
-      color: #009087;
+
+    .btn span,
+    .btn img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.5s ease;
+    }
+
+    /* Default: tulisan terlihat */
+    .btn span {
+      opacity: 1;
+    }
+
+    /* Gambar disembunyikan dulu di bawah */
+    .btn img {
+      width: 28px;
+      opacity: 0;
+      transform: translate(-50%, 100%);
+    }
+
+    /* Saat hover */
+    .btn:hover span {
+      opacity: 0;
+      transform: translate(-50%, -150%);
+    }
+
+    .btn:hover img {
+      opacity: 1;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
@@ -138,6 +179,14 @@
       <textarea rows="5" placeholder="Pesan Anda" required></textarea>
       <button type="submit">📩 Kirim Pesan</button>
     </form>
+  
+    <!-- Tombol WhatsApp yang benar -->
+    <a href="https://wa.me/6283104795175?text=Halo%20saya%20mau%20pesan%20Nasi%20Pecel" 
+       target="_blank" 
+       class="btn">
+      <span>Chat via WhatsApp</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+    </a>
   </section>
 
   <script>

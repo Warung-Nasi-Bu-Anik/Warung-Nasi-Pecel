@@ -1,14 +1,14 @@
 const CACHE_NAME = "warung-cache-v1";
 const urlsToCache = [
-  "index.html",
-  "About.html",
-  "contact.html",
-  "favicon.jpg",
-  "icon-192.jpg",
-  "icon-512.jpg",
-  "1.jpg",
-  "2.jpg",
-  "3.jpg"
+  "./index.html",
+  "./about.html",
+  "./contact.html",
+  "./favicon.jpg",
+  "./icon-192.jpg",
+  "./icon-512.jpg",
+  "./1.jpg",
+  "./2.jpg",
+  "./3.jpg"
 ];
 
 self.addEventListener("install", event => {
